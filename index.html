@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VeryFind — Crowd QA that pays, in Canton Coin</title>
+<meta name="description" content="VeryFind is a paid crowd of real testers on real devices. Clients get bugs found fast. Testers get paid in Canton Coin for every bug that lands.">
+<meta name="theme-color" content="#F4EFE6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#04231A" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VeryFind — Crowd QA that pays, in Canton Coin">
+<meta property="og:description" content="Real people, real devices, real bugs, paid in Canton Coin. Find every bug, on every device.">
+<meta property="og:url" content="https://veryfind.cc">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23013A28'/%3E%3Cpath d='M8 9 L16 23 L24 9' fill='none' stroke='%23C9A27A' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   VeryFind — veryfind.cc — single page, inlined CSS, light & dark aware.
+   Palette: British Racing Green + Cognac on warm cream. No pure black/white.
+   Display: Fraunces (heritage-luxe serif). Body/UI: Inter.
+   ========================================================================= */
+:root{
+  /* brand tokens */
+  --brg-900:#013A28; --brg-700:#0A5C3E; --brg-500:#1E7A57;
+  --cognac:#A9744F; --cognac-300:#C9A27A;
+  --paper:#F4EFE6; --ink:#14211B; --muted-c:#5B6B60;
+  /* semantic (light) */
+  --bg:var(--paper);
+  --surface:#FAF6EE;
+  --text:var(--ink);
+  --muted:var(--muted-c);
+  --hairline:rgba(169,116,79,.34);
+  --hairline-soft:rgba(169,116,79,.18);
+  --accent:var(--cognac);
+  --price:var(--cognac);
+  --link:var(--brg-700);
+  --btn-fill:var(--cognac);
+  --btn-text:#F7F2E9;
+  --band-bg:var(--brg-900);
+  --band-text:#F4EFE6;
+  --grain:.05;
+  --radius:11px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#04231A;
+    --surface:#0A3325;
+    --text:#EFE8DB;
+    --muted:#9DB0A4;
+    --hairline:rgba(201,162,122,.26);
+    --hairline-soft:rgba(201,162,122,.14);
+    --price:var(--cognac-300);
+    --link:#63C199;
+    --band-bg:#02180F;
+    --band-text:#F4EFE6;
+    --grain:.06;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Inter,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+/* faint grain over the cream */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+main,header,footer{position:relative;z-index:1}
+a{color:var(--link);text-decoration:none}
+h1,h2,h3{font-family:Fraunces,Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:-.01em}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.eyebrow{font:600 12px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--cognac)}
+.muted{color:var(--muted)}
+
+/* skip link */
+.skip{position:absolute;left:-999px;top:0;background:var(--brg-900);color:#F4EFE6;padding:10px 16px;border-radius:8px;z-index:100}
+.skip:focus{left:12px;top:12px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.55rem;font:600 15px/1 Inter,sans-serif;
+  padding:14px 22px;border-radius:10px;border:1px solid transparent;cursor:pointer;
+  transition:transform .15s ease, box-shadow .2s ease, background .2s, border-color .2s;}
+.btn:focus-visible{outline:2px solid var(--cognac);outline-offset:3px}
+.btn-primary{background:var(--btn-fill);color:var(--btn-text);box-shadow:0 1px 0 rgba(0,0,0,.05)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(169,116,79,.28)}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--hairline)}
+.btn-ghost:hover{transform:translateY(-2px);border-color:var(--cognac)}
+.btn svg{width:16px;height:16px}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 86%, transparent);
+  backdrop-filter:blur(9px);border-bottom:1px solid var(--hairline-soft)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:20px;height:64px}
+.wordmark{font-family:Fraunces,serif;font-weight:600;font-size:23px;letter-spacing:-.01em;color:var(--text)}
+.wordmark b{color:var(--cognac);font-weight:600}
+nav.main{display:flex;gap:26px}
+nav.main a{color:var(--text);font-size:14.5px;opacity:.82}
+nav.main a:hover{opacity:1;color:var(--link)}
+.header-cta{display:flex;align-items:center;gap:14px}
+.header-cta .btn{padding:10px 18px;font-size:14px}
+.menu-hint{display:none}
+
+/* sections */
+section{padding:96px 0;position:relative}
+.rule{height:1px;background:var(--hairline);width:100%;transform-origin:left}
+.sec-top{margin-bottom:26px}
+h2{font-size:clamp(28px,4.2vw,46px);line-height:1.05;margin:14px 0 0}
+.lead{font-size:clamp(17px,1.5vw,19px);color:var(--muted);max-width:64ch;margin:18px 0 0}
+
+/* hero */
+.hero{padding:88px 0 84px;position:relative;overflow:hidden}
+.hero .motif{position:absolute;right:-60px;top:20px;width:560px;max-width:60%;opacity:.5;pointer-events:none}
+.hero-inner{max-width:760px;position:relative}
+h1{font-size:clamp(42px,7vw,80px);line-height:1.0;margin:18px 0 0}
+.hero .sub{font-size:clamp(18px,1.9vw,22px);color:var(--muted);margin:24px 0 0;max-width:60ch}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin:34px 0 0}
+.hero .micro{margin:22px 0 0;font-size:14.5px;color:var(--muted)}
+.hero .micro::before{content:"";display:inline-block;width:22px;height:1px;background:var(--cognac);vertical-align:middle;margin-right:10px}
+
+/* how it works */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);padding:26px 24px;
+  transition:transform .15s ease, box-shadow .2s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(20,33,27,.08)}
+.card .idx{font-family:Fraunces,serif;font-size:15px;color:var(--cognac);font-weight:600;letter-spacing:.02em}
+.card h3{font-family:Inter,sans-serif;font-weight:600;font-size:18px;letter-spacing:0;margin:12px 0 8px}
+.card p{margin:0;font-size:14.7px;color:var(--muted)}
+
+/* bounty clock */
+.bounty{text-align:center}
+.bounty .grid{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:center;text-align:left;margin-top:40px}
+.meter{position:relative;width:300px;height:300px;margin:0 auto;display:grid;place-items:center}
+.meter svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-track{fill:none;stroke:var(--hairline);stroke-width:6}
+.ring-prog{fill:none;stroke:var(--cognac);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .18s linear}
+.meter .val{position:absolute;inset:0;display:grid;place-items:center;flex-direction:column}
+.meter .price{font-family:Fraunces,serif;font-weight:600;font-size:76px;line-height:1;color:var(--price)}
+.meter .cap{position:absolute;bottom:34px;left:0;right:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.meter.pulse{animation:pulse .42s ease}
+@keyframes pulse{0%{transform:scale(1)}40%{transform:scale(1.045)}100%{transform:scale(1)}}
+.bounty h2{margin-top:0}
+.bounty p{color:var(--muted);margin:16px 0 0}
+.bounty p.tight{color:var(--text)}
+.bounty .btn{margin-top:26px}
+
+/* payments + generic prose two-col */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:40px;align-items:start}
+.paylist{list-style:none;padding:0;margin:0}
+.paylist li{position:relative;padding:16px 0 16px 30px;border-top:1px solid var(--hairline-soft);color:var(--text);font-size:15.5px}
+.paylist li:first-child{border-top:none}
+.paylist li::before{content:"";position:absolute;left:0;top:23px;width:11px;height:11px;border:1.5px solid var(--cognac);border-radius:3px}
+.fine{font-size:13px;color:var(--muted);margin-top:22px;max-width:60ch}
+
+/* device coverage */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.chip{border:1px solid var(--hairline);border-radius:8px;padding:9px 14px;font-size:13.5px;color:var(--text);background:var(--surface)}
+
+/* clients */
+.clients .btn{margin-top:26px}
+.logorow{margin-top:34px;display:flex;align-items:center;gap:18px}
+.logorow .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.logorow .logo{font-family:Fraunces,serif;font-weight:600;font-size:22px;color:var(--muted);filter:grayscale(1);opacity:.7}
+
+/* faq */
+.faq-list{margin-top:34px;border-top:1px solid var(--hairline)}
+details{border-bottom:1px solid var(--hairline)}
+summary{list-style:none;cursor:pointer;padding:20px 2px;display:flex;justify-content:space-between;align-items:center;gap:20px;
+  font-family:Fraunces,serif;font-size:19px;font-weight:500;color:var(--text)}
+summary::-webkit-details-marker{display:none}
+summary .pm{flex:0 0 auto;width:20px;height:20px;position:relative}
+summary .pm::before,summary .pm::after{content:"";position:absolute;background:var(--cognac);left:50%;top:50%;transform:translate(-50%,-50%)}
+summary .pm::before{width:14px;height:1.5px}
+summary .pm::after{width:1.5px;height:14px;transition:transform .2s ease}
+details[open] summary .pm::after{transform:translate(-50%,-50%) scaleY(0)}
+details p{margin:0 0 22px;color:var(--muted);font-size:15.5px;max-width:70ch}
+
+/* footer band */
+.band{background:var(--band-bg);color:var(--band-text);text-align:center;padding:88px 0}
+.band .big{font-family:Fraunces,serif;font-weight:500;font-size:clamp(30px,5vw,56px);line-height:1.04;margin:0}
+.band .btn{margin-top:30px;background:var(--cognac);color:#F7F2E9}
+.band .btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.28)}
+.band .smallprint{margin-top:30px;font-size:13.5px;color:rgba(244,239,230,.7);letter-spacing:.02em}
+
+/* reveal / motion (only when JS on) */
+html.js .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease, transform .6s ease}
+html.js .reveal.in{opacity:1;transform:none}
+html.js .rule{transform:scaleX(0);transition:transform .7s ease}
+html.js .rule.in{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  html.js .reveal{opacity:1;transform:none;transition:none}
+  html.js .rule{transform:none;transition:none}
+  .btn:hover,.card:hover{transform:none}
+}
+
+/* responsive */
+@media (max-width:880px){
+  nav.main{display:none}
+  .cards{grid-template-columns:1fr 1fr}
+  .bounty .grid{grid-template-columns:1fr;gap:30px}
+  .split{grid-template-columns:1fr;gap:34px}
+  .hero .motif{opacity:.28}
+}
+@media (max-width:560px){
+  section{padding:72px 0}
+  .cards{grid-template-columns:1fr}
+  .header-cta .btn{padding:9px 14px}
+  .meter{width:250px;height:250px}
+  .meter .price{font-size:60px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#hero">Skip to content</a>
+
+<!-- ============================ HEADER ============================ -->
+<header>
+  <div class="wrap bar">
+    <span class="wordmark">Very<b>Find</b></span>
+    <nav class="main" aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#bounty">The bounty clock</a>
+      <a href="#payments">Payments</a>
+      <a href="#clients">For clients</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-primary" href="https://t.me/VeryFindOnBoard_Bot" target="_blank" rel="noopener" aria-label="Start earning on Telegram, opens in a new tab">Start earning</a>
+    </div>
+  </div>
+</header>
+
+<main id="hero">
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="wrap">
+    <svg class="motif" viewBox="0 0 560 400" fill="none" aria-hidden="true">
+      <g stroke="var(--cognac)" stroke-width="1" opacity="0.9">
+        <path d="M60 300 L200 120 L360 220 L500 90"/>
+        <path d="M200 120 L240 320 L360 220"/>
+        <path d="M360 220 L430 340 L500 90"/>
+        <path d="M60 300 L240 320"/>
+      </g>
+      <g fill="var(--cognac)">
+        <circle cx="60" cy="300" r="4.5"/><circle cx="200" cy="120" r="4.5"/><circle cx="360" cy="220" r="4.5"/>
+        <circle cx="500" cy="90" r="4.5"/><circle cx="240" cy="320" r="4.5"/><circle cx="430" cy="340" r="4.5"/>
+      </g>
+    </svg>
+    <div class="hero-inner">
+      <span class="eyebrow reveal">Crowd QA that pays</span>
+      <h1 class="reveal">Find every bug. On every device.</h1>
+      <p class="sub reveal">VeryFind is a paid crowd of real testers on real phones and desktops. Clients get bugs found fast across the devices that matter. Testers get paid in Canton Coin for every bug that lands.</p>
+      <div class="cta reveal">
+        <a class="btn btn-primary" href="https://t.me/VeryFindOnBoard_Bot" target="_blank" rel="noopener" aria-label="Start earning on Telegram, opens in a new tab">Start earning on Telegram</a>
+        <a class="btn btn-ghost" href="#how">How it works</a>
+      </div>
+      <p class="micro reveal">Join in about 60 seconds. No CV, no interview. Just your device and a Bron handle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HOW IT WORKS ============================ -->
+<section id="how">
+  <div class="wrap">
+    <div class="rule"></div>
+    <div class="sec-top" style="margin-top:26px">
+      <span class="eyebrow reveal">How it works</span>
+      <h2 class="reveal">Four steps from lurker to earner.</h2>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="idx">01</div>
+        <h3>Onboard</h3>
+        <p>Open @VeryFindOnBoard_Bot, share your brontag (your Bron handle), and tap once to register your device. We read your platform and OS automatically. You are never asked for specs.</p>
+      </div>
+      <div class="card reveal">
+        <div class="idx">02</div>
+        <h3>Get admitted</h3>
+        <p>We build a device-diverse crowd, so an operator approves you into the pool and pings you the moment you are in. One Telegram account is one tester, one device, one identity.</p>
+      </div>
+      <div class="card reveal">
+        <div class="idx">03</div>
+        <h3>File a bug</h3>
+        <p>In the bot, answer five short questions and attach a screenshot. Your device and OS are stamped on the report for you.</p>
+      </div>
+      <div class="card reveal">
+        <div class="idx">04</div>
+        <h3>Get paid</h3>
+        <p>A reviewer validates real, reproducible bugs. Validated bugs pay out in Canton Coin to your Bron wallet. Your reputation rises with every accepted find.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BOUNTY CLOCK ============================ -->
+<section id="bounty" class="bounty">
+  <div class="wrap">
+    <div class="rule"></div>
+    <div class="grid">
+      <div class="meter" id="bountyMeter" aria-hidden="true">
+        <svg viewBox="0 0 240 240">
+          <circle class="ring-track" cx="120" cy="120" r="110"></circle>
+          <circle class="ring-prog" id="bountyRing" cx="120" cy="120" r="110"></circle>
+        </svg>
+        <div class="val"><span class="price" id="bountyValue">$1</span></div>
+        <div class="cap">Live bounty for the next bug</div>
+      </div>
+      <div>
+        <span class="eyebrow reveal">The bounty clock</span>
+        <h2 class="reveal">One price. Rising every hour. First good report takes it.</h2>
+        <p class="reveal">VeryFind runs a single live bounty for the next accepted bug. It starts at 1 dollar and climbs by 1 dollar for every hour the crowd stays quiet, up to a 30 dollar ceiling. The instant anyone files, it resets to 1 dollar and starts climbing again.</p>
+        <p class="reveal">So the math is simple. When reports are flowing, bugs are cheap and the client pays little. When the crowd goes quiet, the next bug becomes worth 10, 20, even 30 dollars, a standing invitation to come back and file. But it is a race: the first solid report claims the whole standing price, and everyone else is back to a dollar. Watch the meter, strike when it is high, do not wait too long or someone else grabs it.</p>
+        <p class="tight reveal">You lock the price the moment you submit. You are paid once the operator validates the bug.</p>
+        <a class="btn btn-primary reveal" href="https://t.me/VeryFindOnBoard_Bot" target="_blank" rel="noopener" aria-label="Grab the next bug on Telegram, opens in a new tab">Grab the next bug</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CANTON COIN PAYMENTS ============================ -->
+<section id="payments">
+  <div class="wrap">
+    <div class="rule"></div>
+    <div class="split">
+      <div>
+        <span class="eyebrow reveal">Payments</span>
+        <h2 class="reveal">Paid in Canton Coin.</h2>
+        <p class="lead reveal">Every validated bug pays out in Canton Coin, the native asset of the Canton Network, straight to your Bron wallet by your brontag. No invoices, no bank details, no waiting on payroll.</p>
+        <p class="fine reveal">Canton Coin (CC) settles on the Canton Network. Amounts shown in USD are converted to CC at payout.</p>
+      </div>
+      <div class="reveal">
+        <ul class="paylist">
+          <li>On validation you earn the locked bounty. 70 percent is available immediately, 30 percent is held briefly as a quality hold, then released.</li>
+          <li>Payouts are batched per tester so Canton network fees stay negligible against your total, not eaten by tiny per-bug transfers.</li>
+          <li>Settlement is on-chain and yours to keep. You approve receipt in your own wallet.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DEVICE COVERAGE ============================ -->
+<section id="coverage">
+  <div class="wrap">
+    <div class="rule"></div>
+    <div class="sec-top" style="margin-top:26px">
+      <span class="eyebrow reveal">Device coverage</span>
+      <h2 class="reveal">Coverage across the devices that matter.</h2>
+      <p class="lead reveal">Bugs hide on specific devices. VeryFind builds a crowd that spans iOS and Android versions, phone and desktop, so clients see representative coverage, not just the newest flagship. We detect each tester's platform and OS at onboarding and balance the pool. One person, one device, one payout identity, so coverage is real and no one can farm multiple slots.</p>
+    </div>
+    <div class="chips reveal">
+      <span class="chip">iOS 17 iPhone</span>
+      <span class="chip">iOS 16 iPhone</span>
+      <span class="chip">Android 14 Pixel</span>
+      <span class="chip">Android 13 Samsung</span>
+      <span class="chip">macOS</span>
+      <span class="chip">Windows 10/11</span>
+      <span class="chip">Linux</span>
+      <span class="chip">iPadOS</span>
+    </div>
+    <p class="fine reveal">Exact iPhone model is not tracked; iOS version is.</p>
+  </div>
+</section>
+
+<!-- ============================ FOR CLIENTS ============================ -->
+<section id="clients" class="clients">
+  <div class="wrap">
+    <div class="rule"></div>
+    <div class="sec-top" style="margin-top:26px">
+      <span class="eyebrow reveal">For clients</span>
+      <h2 class="reveal">For teams shipping fast.</h2>
+      <p class="lead reveal">Point a motivated crowd at your app and get device-diverse bug reports within hours, priced by a market that rewards the hard-to-find. You review and validate; we handle the crowd, the devices, and the payments.</p>
+    </div>
+    <a class="btn btn-primary reveal" href="https://t.me/VeryFindOnBoard_Bot" target="_blank" rel="noopener" aria-label="Talk to us on Telegram, opens in a new tab">Talk to us</a>
+    <div class="logorow reveal">
+      <span class="lbl">Teams testing with VeryFind</span>
+      <span class="logo">Bron</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="rule"></div>
+    <div class="sec-top" style="margin-top:26px">
+      <span class="eyebrow reveal">FAQ</span>
+      <h2 class="reveal">Questions, answered.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <details>
+        <summary>What is a brontag?<span class="pm" aria-hidden="true"></span></summary>
+        <p>Your Bron wallet handle. It is how we pay you in Canton Coin.</p>
+      </details>
+      <details>
+        <summary>Do I need to buy anything?<span class="pm" aria-hidden="true"></span></summary>
+        <p>No. You test on the device you already own.</p>
+      </details>
+      <details>
+        <summary>How fast do I get paid?<span class="pm" aria-hidden="true"></span></summary>
+        <p>After an operator validates your bug. Payouts settle in Canton Coin to your Bron wallet.</p>
+      </details>
+      <details>
+        <summary>Why does the price go up and down?<span class="pm" aria-hidden="true"></span></summary>
+        <p>It is one live bounty for the next bug: up each idle hour to 30 dollars, back to 1 the moment someone files. First good report takes the standing price.</p>
+      </details>
+      <details>
+        <summary>Can I register two devices?<span class="pm" aria-hidden="true"></span></summary>
+        <p>One Telegram account is one tester and one device. Re-registering updates your record, it does not create a second slot.</p>
+      </details>
+      <details>
+        <summary>What if my bug is rejected?<span class="pm" aria-hidden="true"></span></summary>
+        <p>No payout, and repeated low-quality reports can get you removed. Good reports build reputation.</p>
+      </details>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================ FOOTER CTA ============================ -->
+<footer class="band">
+  <div class="wrap">
+    <p class="big">Real devices. Real bugs. Real coin.</p>
+    <a class="btn btn-primary" href="https://t.me/VeryFindOnBoard_Bot" target="_blank" rel="noopener" aria-label="Start earning on Telegram, opens in a new tab">Start earning</a>
+    <p class="smallprint">veryfind.cc&nbsp; ·&nbsp; Telegram: @VeryFindOnBoard_Bot&nbsp; ·&nbsp; Paid in Canton Coin</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement; root.classList.add('js');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* scroll reveal + hairline draw-in */
+  var els=[].slice.call(document.querySelectorAll('.reveal,.rule'));
+  if(reduce||!('IntersectionObserver'in window)){
+    els.forEach(function(e){e.classList.add('in');});
+  }else{
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+    },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){io.observe(e);});
+  }
+
+  /* bounty clock: count 1 -> 30, cognac ring fills, snap back to 1 with a pulse */
+  var num=document.getElementById('bountyValue'),
+      ring=document.getElementById('bountyRing'),
+      wrap=document.getElementById('bountyMeter');
+  if(num&&ring){
+    var R=110, C=2*Math.PI*R;
+    ring.style.strokeDasharray=C.toFixed(1);
+    function paint(v){ num.textContent='$'+v; ring.style.strokeDashoffset=(C*(1-v/30)).toFixed(1); }
+    if(reduce){ paint(1); }
+    else{
+      var v=1; paint(1);
+      (function step(){
+        if(v<30){ v++; paint(v); setTimeout(step,190); }
+        else{
+          setTimeout(function(){
+            if(wrap){ wrap.classList.add('pulse'); setTimeout(function(){wrap.classList.remove('pulse');},430); }
+            v=1; paint(1); setTimeout(step,760);
+          },1000);
+        }
+      })();
+    }
+  }
+})();
+</script>
+</body>
+</html>
