@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://veryfind.cc/sitemap.xml
